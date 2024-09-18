@@ -1,0 +1,37 @@
+﻿@model int?  
+@{
+    ViewData["Title"] = "Delete Post";
+}
+
+<h2>Delete a Post by ID</h2>
+
+
+<form asp-action="DeletePost" method="post">
+    <div class="form-group">
+        <label for="postId">Enter Post ID:</label>
+        
+        <input type="number" id="postId" name="id" class="form-control" 
+               value="@Model" placeholder="Enter post ID" required min="1" />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-danger">Delete Post</button>
+</form>
+
+
+@section Scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            let postId = document.getElementById('postId').value;
+            if (!postId || isNaN(postId) || postId <= 0) {
+                alert('Please enter a valid numeric Post ID greater than 0.');
+                event.preventDefault(); 
+                return;
+            }
+
+            
+            if (!confirm("Are you sure you want to delete the post with ID: " + postId + "?")) {
+                event.preventDefault(); 
+            }
+        });
+    </script>
+}
